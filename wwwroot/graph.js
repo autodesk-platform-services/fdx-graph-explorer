@@ -7,20 +7,27 @@ const ASSET_TYPE_COLOR_TABLE = {
     'autodesk.design:assets.renderstyle-1.0.0': '#0099c6'
 };
 
-const group = d3.select('#preview svg g');
+const group = d3.select('#graph g');
 const zoom = d3.zoom()
-    // .scaleExtent([1, 10])
     .on('zoom', function () {
         group.attr('transform', d3.event.transform);
     });
-// group
-//     .call(zoom);
-d3.select('#preview svg').call(zoom);
+d3.select('#graph').call(zoom);
 const tooltip = d3.select('body')
     .append('div')
     .attr('class', 'tooltip')
     .style('opacity', 0)
     .text('...');
+
+// Initialize the legend
+const legend = d3.select('#graph')
+    .append('g')
+    .attr('transform', 'translate(10 10)');
+const assetTypes = Object.keys(ASSET_TYPE_COLOR_TABLE);
+for (let i = 0; i < assetTypes.length; i++) {
+    legend.append('circle').attr('cx', 0).attr('cy', i * 20).attr('r', 6).style('fill', ASSET_TYPE_COLOR_TABLE[assetTypes[i]]);
+    legend.append('text').attr('x', 20).attr('y', i * 20).text(assetTypes[i]).style('font-size', '15px').attr('alignment-baseline', 'middle');
+}
 
 export async function loadGraph(collectionId, exchangeId, onAssetClick) {
     console.log('Retrieving assets...');
