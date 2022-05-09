@@ -62,22 +62,10 @@ export async function loadGraph(collectionId, exchangeId, onAssetClick) {
         .append('circle')
         .attr('r', 10)
         .attr('fill', d => ASSET_TYPE_COLOR_TABLE[d.type])
-        .on('click', function (d) {
-            onAssetClick(assets.find(asset => asset.id === d.id));
-        })
-        .on('mouseover', function (d) {
-            tooltip.transition()
-                .duration(200)
-                .style('opacity', .9);
-            tooltip.html(`<div>${d.name}</div><div>(${d.type})</div>`)
-                .style('left', (d3.event.pageX + 8) + 'px')
-                .style('top', (d3.event.pageY - 32) + 'px');
-        })
-        .on('mouseout', function () {
-            tooltip.transition()
-                .duration(500)
-                .style("opacity", 0);
-        });
+        .style('stroke', 'black')
+        .on('click', onClick)
+        .on('mouseover', onMouseOver)
+        .on('mouseout', onMouseOut);
 
     // Let's list the force we wanna apply on the network
     const simulation = d3.forceSimulation(nodes)
@@ -108,5 +96,27 @@ export async function loadGraph(collectionId, exchangeId, onAssetClick) {
         //             default: return '';
         //         }
         //     });
+    }
+
+    function onClick(data) {
+        group
+            .selectAll('circle')
+            .style('stroke-width', (d) => d.id === data.id ? 4 : 1);
+        onAssetClick(assets.find(asset => asset.id === data.id));
+    }
+
+    function onMouseOver(data) {
+        tooltip.transition()
+        .duration(200)
+        .style('opacity', .9);
+        tooltip.html(`<div>${data.name}</div><div>(${data.type})</div>`)
+            .style('left', (d3.event.pageX + 8) + 'px')
+            .style('top', (d3.event.pageY - 32) + 'px');
+    }
+
+    function onMouseOut() {
+        tooltip.transition()
+            .duration(500)
+            .style('opacity', 0);
     }
 }
