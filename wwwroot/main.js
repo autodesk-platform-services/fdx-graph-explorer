@@ -18,7 +18,7 @@ try {
                 document.body.removeChild(iframe);
             };
         }
-        initTree('#tree', (collectionId, exchangeId) => loadGraph(collectionId, exchangeId, loadProperties));
+        initTree('#tree', (collectionId, exchangeId) => loadGraph(document.getElementById('preview'), collectionId, exchangeId, loadProperties));
     } else {
         login.innerText = 'Login';
         login.onclick = () => window.location.replace('/api/auth/login');
