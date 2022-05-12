@@ -7,6 +7,15 @@ const ASSET_TYPE_COLOR_TABLE = {
     'autodesk.design:assets.renderstyle-1.0.0': '#0099c6'
 };
 
+const ASSET_TYPE_SHORTCUT = {
+    'autodesk.design:assets.binary-1.0.0': 'BI',
+    'autodesk.design:assets.design-1.0.0': 'DE',
+    'autodesk.design:assets.geometry-1.0.0': 'GE',
+    'autodesk.design:assets.group-1.0.0': 'GR',
+    'autodesk.design:assets.instance-1.0.0': 'IN',
+    'autodesk.design:assets.renderstyle-1.0.0': 'RS'
+};
+
 const group = d3.select('#graph g');
 const zoom = d3.zoom()
     .on('zoom', function () {
@@ -20,14 +29,26 @@ const tooltip = d3.select('body')
     .text('...');
 
 // Initialize the legend
-const legend = d3.select('#graph')
-    .append('g')
-    .attr('transform', 'translate(10 10)');
-const assetTypes = Object.keys(ASSET_TYPE_COLOR_TABLE);
-for (let i = 0; i < assetTypes.length; i++) {
-    legend.append('circle').attr('cx', 0).attr('cy', i * 20).attr('r', 6).style('fill', ASSET_TYPE_COLOR_TABLE[assetTypes[i]]);
-    legend.append('text').attr('x', 20).attr('y', i * 20).text(assetTypes[i]).style('font-size', '15px').attr('alignment-baseline', 'middle');
+// const legend = d3.select('#graph')
+//     .append('g')
+//     .attr('transform', 'translate(10 10)');
+// const assetTypes = Object.keys(ASSET_TYPE_COLOR_TABLE);
+// for (let i = 0; i < assetTypes.length; i++) {
+//     legend.append('circle').attr('cx', 0).attr('cy', i * 20).attr('r', 6).style('fill', ASSET_TYPE_COLOR_TABLE[assetTypes[i]]);
+//     legend.append('text').attr('x', 20).attr('y', i * 20).text(assetTypes[i]).style('font-size', '15px').attr('alignment-baseline', 'middle');
+// }
+
+function resize() {
+    const { clientWidth, clientHeight } = document.getElementById('preview');
+    d3.select('#graph')
+        .attr('width', clientWidth)
+        .attr('height', clientHeight);
+    // legend
+    //     .attr('transform', `translate(${0.25 * clientWidth + 10} ${clientHeight - 120})`);
 }
+
+window.onresize = resize;
+resize();
 
 export async function loadGraph(collectionId, exchangeId, onAssetClick) {
     console.log('Retrieving assets...');
@@ -59,6 +80,7 @@ export async function loadGraph(collectionId, exchangeId, onAssetClick) {
         .data(links)
         .enter()
         .append('line')
+        .attr('vector-effect', 'non-scaling-stroke')
         .style('stroke', '#aaa');
 
     // Initialize the nodes
@@ -73,6 +95,14 @@ export async function loadGraph(collectionId, exchangeId, onAssetClick) {
         .on('click', onClick)
         .on('mouseover', onMouseOver)
         .on('mouseout', onMouseOut);
+
+    // const labels = group
+    //     .selectAll('text')
+    //     .data(nodes)
+    //     .enter()
+    //     .append('text')
+    //     .text(d => ASSET_TYPE_SHORTCUT[d.type])
+    //     .attr('text-anchor', 'middle');
 
     // Let's list the force we wanna apply on the network
     const simulation = d3.forceSimulation(nodes)
@@ -92,6 +122,9 @@ export async function loadGraph(collectionId, exchangeId, onAssetClick) {
         node
             .attr('cx', d => d.x)
             .attr('cy', d => d.y);
+        // labels
+        //     .attr('x', d => d.x)
+        //     .attr('y', d => d.y);
     }
 
     function onEnd() {
