@@ -18,7 +18,10 @@ try {
                 document.body.removeChild(iframe);
             };
         }
-        initTree('#tree', (collectionId, exchangeId) => loadGraph(collectionId, exchangeId, loadProperties));
+        initTree('#tree', (collectionId, exchangeId) => {
+            document.getElementById('right-sidebar').style.visibility = 'hidden';
+            loadGraph(collectionId, exchangeId, loadProperties);
+        });
     } else {
         login.innerText = 'Login';
         login.onclick = () => window.location.replace('/api/auth/login');
@@ -30,21 +33,9 @@ try {
 }
 
 async function loadProperties(asset) {
-    function populate(ul, obj) {
-        for (const key of Object.keys(obj)) {
-            const li = document.createElement('li');
-            if (obj[key] instanceof Array || obj[key] instanceof Object) {
-                const nestedList = document.createElement('ul');
-                populate(nestedList, obj[key]);
-                li.innerText = `${key}:`;
-                li.appendChild(nestedList);
-            } else {
-                li.innerText = `${key}: ${obj[key]}`;
-            }
-            ul.appendChild(li);
-        }
-    }
-    const ul = document.getElementById('properties');
-    ul.innerHTML = '';
-    populate(ul, asset);
+    const sidebar = document.getElementById('right-sidebar');
+    sidebar.innerHTML = '';
+    sidebar.style.visibility = 'visible';
+    const tree = jsonview.create(asset);
+    jsonview.render(tree, sidebar);
 }
