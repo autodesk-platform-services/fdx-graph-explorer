@@ -28,8 +28,8 @@ Simple explorer of [Autodesk Forge](https://forge.autodesk.com) Exchanges and th
   and respond with the cached data next time it is requested
 - Run the app: `npm start`
 
-> If you're using Visual Studio, consider creating a _.vscode/launch.json_ with the following content
-> (replacing the placeholders with your actual env. var. values):
+> If you're using [Visual Studio Code](https://code.visualstudio.com), consider creating a _.vscode/launch.json_
+> with the following content (replacing the placeholders with your actual env. var. values):
 > ```
 > {
 >     "version": "0.2.0",
