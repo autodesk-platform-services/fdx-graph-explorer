@@ -1,8 +1,8 @@
 const path = require('path');
 const express = require('express');
 const fse = require('fs-extra');
-const { authRefreshMiddleware } = require('../services/forge/auth.js');
-const { getExchanges, getExchangeAssets, getExchangeRelationships } = require('../services/forge/fdx.js');
+const { authRefreshMiddleware } = require('../services/aps.js');
+const { getExchanges, getExchangeAssets, getExchangeRelationships } = require('../services/fdx.js');
 const { USE_CACHE } = require('../config.js');
 
 let router = express.Router();

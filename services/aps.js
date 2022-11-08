@@ -1,7 +1,7 @@
-const { AuthClientThreeLegged, UserProfileApi } = require('forge-apis');
-const { FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, FORGE_CALLBACK_URL } = require('../../config.js');
+const { AuthClientThreeLegged, UserProfileApi, HubsApi, ProjectsApi, FoldersApi, ItemsApi } = require('forge-apis');
+const { APS_CLIENT_ID, APS_CLIENT_SECRET, APS_CALLBACK_URL } = require('../config.js');
 
-const authClient = new AuthClientThreeLegged(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, FORGE_CALLBACK_URL, ['data:read']);
+const authClient = new AuthClientThreeLegged(APS_CLIENT_ID, APS_CLIENT_SECRET, APS_CALLBACK_URL, ['data:read']);
 
 function getAuthorizationUrl() {
     return authClient.generateAuthUrl();
@@ -40,9 +40,38 @@ async function getUserProfile(token) {
     return resp.body;
 }
 
+async function getHubs(token) {
+    const resp = await new HubsApi().getHubs(null, authClient, token);
+    return resp.body.data;
+}
+
+async function getProjects(hubId, token) {
+    const resp = await new ProjectsApi().getHubProjects(hubId, null, authClient, token);
+    return resp.body.data;
+}
+
+async function getProjectContents(hubId, projectId, folderId, token) {
+    if (!folderId) {
+        const resp = await new ProjectsApi().getProjectTopFolders(hubId, projectId, authClient, token);
+        return resp.body.data;
+    } else {
+        const resp = await new FoldersApi().getFolderContents(projectId, folderId, null, authClient, token);
+        return resp.body.data;
+    }
+}
+
+async function getItemVersions(projectId, itemId, token) {
+    const resp = await new ItemsApi().getItemVersions(projectId, itemId, null, authClient, token);
+    return resp.body.data;
+}
+
 module.exports = {
     getAuthorizationUrl,
     authCallbackMiddleware,
     authRefreshMiddleware,
-    getUserProfile
+    getUserProfile,
+    getHubs,
+    getProjects,
+    getProjectContents,
+    getItemVersions
 };

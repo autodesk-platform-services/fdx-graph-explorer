@@ -1,6 +1,6 @@
 # fdx-graph-explorer
 
-Simple explorer of [Autodesk Forge](https://forge.autodesk.com) Exchanges and their graphs.
+Simple explorer of [Autodesk Platform Services](https://aps.autodesk.com) Data Exchanges and their graphs.
 
 ![Screenshot](./screenshot.png)
 
@@ -8,7 +8,7 @@ Simple explorer of [Autodesk Forge](https://forge.autodesk.com) Exchanges and th
 
 ### Prerequisites
 
-- Autodesk Forge app credentials (see the [Create an App](https://forge.autodesk.com/en/docs/oauth/v2/tutorials/create-app) tutorial)
+- APS credentials (see the [Create an App](https://forge.autodesk.com/en/docs/oauth/v2/tutorials/create-app) tutorial)
 - Access to an [Autodesk Construction Cloud](https://construction.autodesk.com/) project (currently the Data Exchanges are only supported in this product)
 - [Node.js](https://nodejs.org) (we recommend the LTS version), and [yarn](https://yarnpkg.com)
 - Terminal (for example, [Windows Command Prompt](https://en.wikipedia.org/wiki/Cmd.exe), or [macOS Terminal](https://support.apple.com/guide/terminal/welcome/mac))
@@ -18,11 +18,11 @@ Simple explorer of [Autodesk Forge](https://forge.autodesk.com) Exchanges and th
 - Clone this repository
 - Install dependencies: `yarn install`
 - Setup env. variables:
-  - `FORGE_CLIENT_ID` - your Forge application client ID
-  - `FORGE_CLIENT_SECRET` - your Forge application client secret
-  - `FORGE_CALLBACK_URL` - callback URL for the login workflow
+  - `APS_CLIENT_ID` - your APS application client ID
+  - `APS_CLIENT_SECRET` - your APS application client secret
+  - `APS_CALLBACK_URL` - callback URL for the login workflow
     - When running locally, this should be `http://localhost:8080/api/auth/callback`
-    - Also, make sure that you setup the exact same callback URL for your Forge app in https://forge.autodesk.com/myapps
+    - Also, make sure that you setup the exact same callback URL for your APS app in https://forge.autodesk.com/myapps
   - `SERVER_SESSION_SECRET` - arbitrary string that will be used to encipher/decipher session cookies
   - `USE_CACHE` (optional) - when set to a non-empty string, the app will cache all Data Exchange responses,
   and respond with the cached data next time it is requested
@@ -43,9 +43,9 @@ Simple explorer of [Autodesk Forge](https://forge.autodesk.com) Exchanges and th
 >             ],
 >             "program": "${workspaceFolder}/server.js",
 >             "env": {
->                 "FORGE_CLIENT_ID": "your-client-id",
->                 "FORGE_CLIENT_SECRET": "your-client-secret",
->                 "FORGE_CALLBACK_URL": "http://localhost:8080/api/auth/callback",
+>                 "APS_CLIENT_ID": "your-client-id",
+>                 "APS_CLIENT_SECRET": "your-client-secret",
+>                 "APS_CALLBACK_URL": "http://localhost:8080/api/auth/callback",
 >                 "SERVER_SESSION_SECRET": "your-secret-phrase",
 >                 "USE_CACHE": "true"
 >             }

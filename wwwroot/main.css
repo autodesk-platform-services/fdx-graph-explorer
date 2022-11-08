@@ -77,6 +77,10 @@ input, button {
     margin-right: auto;
 }
 
+#header .logo {
+    margin-right: 1em;
+}
+
 #tree, #properties {
     margin: 0.5em;
 }

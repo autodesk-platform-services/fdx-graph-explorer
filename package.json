@@ -5,8 +5,7 @@
     "start": "node server.js"
   },
   "keywords": [
-    "autodesk",
-    "forge"
+    "autodesk-platform-services"
   ],
   "author": "Petr Broz <petr.broz@autodesk.com>",
   "dependencies": {
