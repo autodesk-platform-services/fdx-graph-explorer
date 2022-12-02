@@ -7,7 +7,6 @@
   "keywords": [
     "autodesk-platform-services"
   ],
-  "author": "Petr Broz <petr.broz@autodesk.com>",
   "dependencies": {
     "axios": "^0.27.2",
     "cookie-session": "^1.4.0",

@@ -1,8 +1,8 @@
-# fdx-graph-explorer
+# Data Exchange Explorer
 
 Simple explorer of [Autodesk Platform Services](https://aps.autodesk.com) Data Exchanges and their graphs.
 
-![Screenshot](./screenshot.png)
+![Screenshot](./thumbnail.png)
 
 ## Development
 
