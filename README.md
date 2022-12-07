@@ -2,7 +2,7 @@
 
 Simple explorer of [Autodesk Platform Services](https://aps.autodesk.com) Data Exchanges and their graphs.
 
-![Screenshot](./thumbnail.png)
+![thumbnail](./thumbnail.png)
 
 ## Development
 
