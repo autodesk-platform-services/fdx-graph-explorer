@@ -1,11 +1,11 @@
 # Data Exchange Explorer
 
 ![platforms](https://img.shields.io/badge/platform-windows%20%7C%20osx%20%7C%20linux-lightgray.svg)
-[![node.js](https://img.shields.io/badge/Node.js-16.16-blue.svg)](https://nodejs.org)
-[![npm](https://img.shields.io/badge/npm-8.11-blue.svg)](https://www.npmjs.com/)
+[![node.js](https://img.shields.io/badge/Node.js-16.17-blue.svg)](https://nodejs.org)
+[![npm](https://img.shields.io/badge/npm-8.15-blue.svg)](https://www.npmjs.com/)
 [![license](https://img.shields.io/:license-mit-green.svg)](https://opensource.org/licenses/MIT)
 
-[![Data Exchange](https://img.shields.io/badge/data%20exchange-v1-green.svg)](https://aps.autodesk.com/en/docs/fdx/v1/developers_guide/fd_overview)
+[![Data Exchange](https://img.shields.io/badge/Data%20Exchange-v1-green.svg)](https://aps.autodesk.com/en/docs/fdx/v1/developers_guide/fd_overview)
 
 Simple explorer of [Autodesk Platform Services](https://aps.autodesk.com) Data Exchanges and their graphs.
 
