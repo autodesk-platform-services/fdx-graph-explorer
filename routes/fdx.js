@@ -12,7 +12,7 @@ router.use(authRefreshMiddleware);
 router.get('/search', async function (req, res, next) {
     const { item_id } = req.query;
     try {
-        const exchanges = await getExchanges(item_id, req.internalOAuthToken.access_token);
+        const exchanges = await getExchanges(item_id, req.credentials.access_token);
         res.json(exchanges);
     } catch (err) {
         next(err);
@@ -25,13 +25,13 @@ router.get('/collections/:collection_id/exchanges/:exchange_id/assets', async fu
         if (USE_CACHE) {
             const cachePath = path.join(__dirname, '..', 'cache', collection_id, exchange_id, 'assets.json');
             if (!fse.existsSync(cachePath)) {
-                const assets = await getExchangeAssets(collection_id, exchange_id, req.internalOAuthToken.access_token);
+                const assets = await getExchangeAssets(collection_id, exchange_id, req.credentials.access_token);
                 fse.ensureDirSync(path.dirname(cachePath));
                 fse.writeJsonSync(cachePath, assets);
             }
             res.sendFile(cachePath);
         } else {
-            const assets = await getExchangeAssets(collection_id, exchange_id, req.internalOAuthToken.access_token);
+            const assets = await getExchangeAssets(collection_id, exchange_id, req.credentials.access_token);
             res.json(assets);
         }
     } catch (err) {
@@ -45,13 +45,13 @@ router.get('/collections/:collection_id/exchanges/:exchange_id/relationships', a
         if (USE_CACHE) {
             const cachePath = path.join(__dirname, '..', 'cache', collection_id, exchange_id, 'rels.json');
             if (!fse.existsSync(cachePath)) {
-                const relationships = await getExchangeRelationships(collection_id, exchange_id, req.internalOAuthToken.access_token);
+                const relationships = await getExchangeRelationships(collection_id, exchange_id, req.credentials.access_token);
                 fse.ensureDirSync(path.dirname(cachePath));
                 fse.writeJsonSync(cachePath, relationships);
             }
             res.sendFile(cachePath);
         } else {
-            const relationships = await getExchangeRelationships(collection_id, exchange_id, req.internalOAuthToken.access_token);
+            const relationships = await getExchangeRelationships(collection_id, exchange_id, req.credentials.access_token);
             res.json(relationships);
         }
     } catch (err) {
